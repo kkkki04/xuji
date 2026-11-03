@@ -1,0 +1,11 @@
+*.exe
+*.bak
+node_modules/
+dist/
+out/
+图记数据/
+序集数据/
+build/icon.iconset/
+.DS_Store
+Thumbs.db
+*.log
