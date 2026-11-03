@@ -47,7 +47,7 @@ xuji/
 │  ├─ build/icon.icns       App 图标
 │  └─ scripts/make-icons.ps1 生成 macOS 图标
 ├─ docs/screenshots/        界面截图
-└─ .github/workflows/       macOS 自动构建
+└─ VERSION.txt             版本与校验值
 ```
 
 ## 数据兼容
@@ -81,7 +81,7 @@ npm install
 npm run dist:mac
 ```
 
-生成 `macos/dist/序集-1.0.0-arm64.dmg` 和 `.zip`。也可以在 GitHub Actions 中运行 `Build macOS App`。
+生成 `macos/dist/序集-1.0.0-arm64.dmg` 和 `.zip`。
 
 ## 说明
 

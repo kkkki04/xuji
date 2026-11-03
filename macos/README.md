@@ -200,7 +200,7 @@ xattr -dr com.apple.quarantine "/Applications/序集.app"
 
 ## GitHub 自动打包（可选，不用本地装 Node）
 
-项目已经包含 `.github/workflows/build-mac.yml`。GitHub 会在一台 **macOS 机器**上执行 `npm ci` 和 `npm run dist:mac`，生成 arm64 的 DMG/ZIP，然后作为 artifact（构建产物压缩包）提供下载。
+统一仓库 `xuji` 默认在本地或 macOS 机器上执行 `npm ci` 和 `npm run dist:mac`。如果需要在 GitHub Actions 自动构建，可自行添加 `.github/workflows/build-mac.yml`（工作目录设为 `macos`），GitHub 会在 macOS 机器上生成 arm64 的 DMG/ZIP 并作为 artifact 提供下载。
 
 ### 第一次设置
 
@@ -289,11 +289,9 @@ Mac 版不能直接读取 Windows 的 `图记数据` 目录，需要走备份文
 ## 6. 项目结构
 
 ```text
-tjmac/
+macos/
 ├─ package.json              # Electron / electron-builder 配置
 ├─ 构建序集.command           # Mac 上双击构建
-├─ .github/workflows/        # GitHub Actions 自动打包
-│  └─ build-mac.yml
 ├─ .gitattributes            # 保证 .command 使用 LF 换行
 ├─ src/
 │  └─ main.js                # 主进程：窗口、菜单、协议、下载
