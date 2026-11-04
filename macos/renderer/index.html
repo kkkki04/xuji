@@ -36,6 +36,11 @@
   body.view-loose { --card-min: 400px; --grid-gap: 24px; }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
+  /* 页面滚动条细一点，右侧留白不至于太宽 */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #d9d3c6; border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: #c9c2b3; }
   html, body { height: 100%; }
   html { scrollbar-gutter: stable; }
   body {
@@ -65,16 +70,16 @@
   .app-header, .subbar {
     max-width: 1440px; margin: 0 auto;
     display: flex; align-items: center; gap: 14px;
-    padding: 16px 12px;
+    padding: 16px 10px;
   }
-  .app-header { padding: 8px 12px 8px; position: relative; flex-wrap: nowrap; justify-content: flex-end; }
+  .app-header { padding: 8px 10px 8px; position: relative; flex-wrap: nowrap; justify-content: flex-end; }
   .head-left { display: flex; align-items: center; gap: 10px; flex: 1 1 auto; min-width: 0; }
 
   /* ---------------- 标签页 ---------------- */
   .tabbar {
     max-width: 1440px; margin: 0 auto;
     display: flex; align-items: flex-end; gap: 8px;
-    padding: 10px 12px 0;
+    padding: 10px 10px 0;
   }
   .tabbar .nav-history { flex: none; padding-bottom: 1px; }
   .tabbar .crumb {
@@ -261,7 +266,7 @@
   body.manage .subbar { padding-top: 2px; padding-bottom: 6px; flex-wrap: wrap; justify-content: flex-end; }
 
   /* ---------------- 网格 ---------------- */
-  main { max-width: 1440px; margin: 0 auto; padding: 8px 12px 150px; }
+  main { max-width: 1440px; margin: 0 auto; padding: 8px 10px 150px; }
   body.at-root main { padding-bottom: 68px; }
 
   /* ---------------- 文件夹浏览器 ---------------- */
@@ -1301,11 +1306,11 @@
     .crumb { max-width: none; }
   }
   @media (max-width: 900px) {
-    .tabbar { padding: 8px 12px 0; }
+    .tabbar { padding: 8px 10px 0; }
     .tabbar .crumb { width: 150px; }
-    .app-header { padding: 6px 12px 6px; gap: 9px; }
-    .subbar { padding: 0 12px 6px; gap: 8px; }
-    main { padding: 8px 12px 158px; }
+    .app-header { padding: 6px 10px 6px; gap: 9px; }
+    .subbar { padding: 0 10px 6px; gap: 8px; }
+    main { padding: 8px 10px 158px; }
     .grid { gap: var(--grid-gap); }
     :root { --card-min: 240px; --grid-gap: 12px; }
     body.view-compact { --card-min: 180px; }
