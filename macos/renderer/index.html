@@ -65,16 +65,16 @@
   .app-header, .subbar {
     max-width: 1440px; margin: 0 auto;
     display: flex; align-items: center; gap: 14px;
-    padding: 16px 20px;
+    padding: 16px 12px;
   }
-  .app-header { padding: 8px 20px 8px; position: relative; flex-wrap: nowrap; justify-content: flex-end; }
+  .app-header { padding: 8px 12px 8px; position: relative; flex-wrap: nowrap; justify-content: flex-end; }
   .head-left { display: flex; align-items: center; gap: 10px; flex: 1 1 auto; min-width: 0; }
 
   /* ---------------- 标签页 ---------------- */
   .tabbar {
     max-width: 1440px; margin: 0 auto;
     display: flex; align-items: flex-end; gap: 8px;
-    padding: 10px 20px 0;
+    padding: 10px 12px 0;
   }
   .tabbar .nav-history { flex: none; padding-bottom: 1px; }
   .tabbar .crumb {
@@ -261,7 +261,7 @@
   body.manage .subbar { padding-top: 2px; padding-bottom: 6px; flex-wrap: wrap; justify-content: flex-end; }
 
   /* ---------------- 网格 ---------------- */
-  main { max-width: 1440px; margin: 0 auto; padding: 8px 20px 150px; }
+  main { max-width: 1440px; margin: 0 auto; padding: 8px 12px 150px; }
   body.at-root main { padding-bottom: 68px; }
 
   /* ---------------- 文件夹浏览器 ---------------- */
@@ -921,7 +921,7 @@
 
   /* ---------------- 分组标签页 ---------------- */
   .groupbar {
-    position: fixed; left: 12px; right: 12px; bottom: 10px; z-index: 58;
+    position: fixed; left: 10px; right: 10px; bottom: 10px; z-index: 58;
     display: flex; align-items: center; gap: 6px;
     padding: 6px 8px;
     background: rgba(255, 255, 255, .9);
@@ -1301,11 +1301,11 @@
     .crumb { max-width: none; }
   }
   @media (max-width: 900px) {
-    .tabbar { padding: 8px 18px 0; }
+    .tabbar { padding: 8px 12px 0; }
     .tabbar .crumb { width: 150px; }
-    .app-header { padding: 6px 18px 6px; gap: 9px; }
-    .subbar { padding: 0 18px 6px; gap: 8px; }
-    main { padding: 8px 18px 158px; }
+    .app-header { padding: 6px 12px 6px; gap: 9px; }
+    .subbar { padding: 0 12px 6px; gap: 8px; }
+    main { padding: 8px 12px 158px; }
     .grid { gap: var(--grid-gap); }
     :root { --card-min: 240px; --grid-gap: 12px; }
     body.view-compact { --card-min: 180px; }
@@ -1339,11 +1339,11 @@
   }
   @media (max-width: 620px) {
     :root { --ctl-h: 30px; }
-    .tabbar { padding: 7px 14px 0; }
+    .tabbar { padding: 7px 10px 0; }
     .tabbar .crumb { width: 118px; }
     .tab { flex-basis: 130px; width: 130px; height: 32px; padding-left: 9px; }
-    .app-header { padding: 6px 14px 5px; gap: 8px; }
-    .subbar { padding: 0 14px 6px; gap: 6px; }
+    .app-header { padding: 6px 10px 5px; gap: 8px; }
+    .subbar { padding: 0 10px 6px; gap: 6px; }
     .head-actions .btn { padding: 0 10px; font-size: 13px; }
     .head-actions { gap: 5px; }
     .more-details > summary { width: var(--ctl-h); }
