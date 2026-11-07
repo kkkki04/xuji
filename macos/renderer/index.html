@@ -365,7 +365,7 @@
   .subfolder-grid .folder-name { margin-top: 9px; font-size: 14.5px; }
   body.at-root .groupbar { left: auto; right: 12px; padding: 7px 12px 7px 16px; min-height: 34px; }
   body.at-root .gtabs, body.at-root .gtab-add { display: none; }
-  body.at-root .type-filter, body.at-root #done-filter, body.at-root #view-compact { display: none; }
+  body.at-root .type-filter, body.at-root #done-filter { display: none; }
   .grid {
     display: grid; gap: var(--grid-gap);
     grid-template-columns: repeat(auto-fill, minmax(var(--card-min), 1fr));
@@ -555,12 +555,12 @@
   .meta .fav-btn.on > svg { filter: drop-shadow(0 1px 2px rgba(200, 150, 30, .3)); }
 
   /* 紧凑视图：缩小卡片内的文字，避免挤在一起 */
-  body.view-compact .card-body { padding: 10px 11px 8px; gap: 4px; }
-  body.view-compact .name { font-size: 14.5px; padding: 3px 5px; margin: 0 -5px; }
-  body.view-compact .note { font-size: 12.5px; line-height: 1.55; min-height: 36px; padding: 3px 5px; margin: 0 -5px; }
-  body.view-compact .meta { font-size: 11px; gap: 6px; padding-top: 6px; }
-  body.view-compact .meta button { font-size: 11px; padding: 1px 3px; }
-  body.view-compact .done-tag { font-size: 10px; padding: 1px 5px; }
+  body:is(.view-standard, .view-compact) .card-body { padding: 10px 11px 8px; gap: 4px; }
+  body:is(.view-standard, .view-compact) .name { font-size: 14.5px; padding: 3px 5px; margin: 0 -5px; }
+  body:is(.view-standard, .view-compact) .note { font-size: 12.5px; line-height: 1.55; min-height: 36px; padding: 3px 5px; margin: 0 -5px; }
+  body:is(.view-standard, .view-compact) .meta { font-size: 11px; gap: 6px; padding-top: 6px; }
+  body:is(.view-standard, .view-compact) .meta button { font-size: 11px; padding: 1px 3px; }
+  body:is(.view-standard, .view-compact) .done-tag { font-size: 10px; padding: 1px 5px; }
 
   /* ---------------- 空状态 ---------------- */
   .empty {
@@ -1270,30 +1270,30 @@
 
   /* ---------------- 响应式 ---------------- */
   @media (max-width: 1120px) {
-    .searchbox {
+    .app-header .searchbox {
       flex: 0 0 var(--ctl-h); width: var(--ctl-h); min-width: var(--ctl-h); height: var(--ctl-h);
       margin: 0; border-radius: 50%; background: var(--bg-soft);
     }
-    .searchbox svg { left: 50%; top: 50%; transform: translate(-50%, -50%); opacity: .72; }
-    .searchbox input {
+    .app-header .searchbox svg { left: 50%; top: 50%; transform: translate(-50%, -50%); opacity: .72; }
+    .app-header .searchbox input {
       position: absolute; inset: 0; width: 100%; height: 100%;
       padding: 0; opacity: 0; cursor: pointer; background: transparent;
     }
-    .searchbox input::placeholder { color: transparent; }
-    .searchbox .clear { display: none !important; }
-    .searchbox.has-value { background: var(--accent-soft); }
-    .searchbox.has-value svg { opacity: 1; color: var(--accent-ink); }
-    .searchbox:focus-within {
+    .app-header .searchbox input::placeholder { color: transparent; }
+    .app-header .searchbox .clear { display: none !important; }
+    .app-header .searchbox.has-value { background: var(--accent-soft); }
+    .app-header .searchbox.has-value svg { opacity: 1; color: var(--accent-ink); }
+    .app-header .searchbox:focus-within {
       position: absolute; left: 14px; right: 14px; top: 10px;
       width: auto; height: 40px; background: #fff;
       border-radius: 999px; box-shadow: var(--shadow-lg); z-index: 85;
     }
-    .searchbox:focus-within input {
+    .app-header .searchbox:focus-within input {
       position: static; opacity: 1; height: 40px;
       padding: 0 36px 0 40px; background: #fff; cursor: text;
     }
-    .searchbox:focus-within input::placeholder { color: var(--muted-2); }
-    .searchbox:focus-within svg { left: 15px; transform: translateY(-50%); }
+    .app-header .searchbox:focus-within input::placeholder { color: var(--muted-2); }
+    .app-header .searchbox:focus-within svg { left: 15px; transform: translateY(-50%); }
     .action-backup { display: none; }
     .more-details { display: inline-flex; }
     .sort-box, .view-size { display: none; }
@@ -1369,6 +1369,110 @@
   @media (prefers-reduced-motion: reduce) {
     * { animation: none !important; transition: none !important; }
   }
+
+  /* Mac title bar: leave native traffic lights clear and keep controls clickable. */
+  .mac-titlebar { display:flex; align-items:center; gap:10px; height:52px;
+    padding:0 16px 0 88px; background:#242824; color:#eee;
+    -webkit-app-region:drag; box-sizing:border-box; }
+  .mac-titlebar-title { flex:1; min-width:0; overflow:hidden; white-space:nowrap;
+    text-overflow:ellipsis; font-size:13px; opacity:.7; }
+  .mac-titlebar .searchbox { flex:0 1 330px; width:330px; min-width:160px;
+    -webkit-app-region:no-drag; }
+  .mac-titlebar .searchbox input { width:100%; height:34px; padding:0 34px 0 40px;
+    background:#3a403a; color:#fff; box-sizing:border-box; }
+  .mac-titlebar .searchbox input::placeholder { color:#b9bdb7; }
+  .mac-titlebar .searchbox input:focus { background:#454d45; }
+  .mac-titlebar .searchbox svg { left:14px; transform:translateY(-50%); }
+  .mac-titlebar .searchbox .clear { color:#ddd; }
+  .mac-titlebar .btn { height:34px; padding:0 12px; font-size:13px;
+    background:#3a403a; color:#eee; -webkit-app-region:no-drag; }
+  .mac-titlebar .btn.primary { background:var(--accent); }
+  .mac-titlebar .action-share, .mac-titlebar .action-backup { display:inline-flex; gap:6px; }
+  .mac-titlebar .action-share span { display:inline; }
+  .mac-titlebar .add-details { position:relative; -webkit-app-region:no-drag; }
+  .mac-titlebar .more-pop { color:var(--ink); -webkit-app-region:no-drag; }
+  @media(max-width:900px) {
+    .mac-titlebar-title { display:none; }
+    .mac-titlebar .searchbox { flex:1; width:auto; }
+  }
+
+  .mac-layout .app-header { display:none; }
+  .mac-layout .tabbar { max-width:none; align-items:center; padding:10px 10px 8px; gap:8px; }
+  .mac-layout .tabstrip { align-items:center; }
+  .mac-layout .tab { flex:0 0 110px; width:110px; box-sizing:border-box; padding-left:9px; }
+  .mac-layout .head-actions { margin-left:auto; gap:6px; }
+  .mac-layout .head-actions .btn { padding:0 10px; }
+  .mac-layout .tabbar .nav-history { padding-bottom:0; }
+  @media(max-width:1000px) {
+    .mac-layout .tabbar .crumb { width:140px; flex-basis:140px; }
+    .mac-layout .head-actions { gap:4px; }
+    .mac-layout .head-actions .btn { padding:0 8px; }
+  }
+  .mac-layout #more-details { display:none !important; }
+
+  #share-modal { padding:clamp(12px,3vw,28px); }
+  #share-modal > .modal { width:min(820px,92vw); max-width:100%;
+    max-height:calc(100dvh - 56px); box-sizing:border-box;
+    display:flex; flex-direction:column; overflow:hidden; padding:24px; }
+  #share-modal h3 { flex-shrink:0; margin:0 0 12px; }
+  #share-modal .share-scroll { min-height:0; overflow-y:auto; overflow-x:hidden;
+    padding:0 12px 8px 0; scrollbar-gutter:stable; overscroll-behavior:contain;
+    scrollbar-width:thin; scrollbar-color:#b8b5aa transparent; }
+  #share-modal .share-scroll::-webkit-scrollbar { width:7px; }
+  #share-modal .share-scroll::-webkit-scrollbar-thumb { background:#b8b5aa; border-radius:8px; }
+  #share-modal .share-scroll::-webkit-scrollbar-track { background:transparent; margin:6px 0; }
+  #share-modal .modal-actions { flex-shrink:0; padding-top:12px; margin-top:0; }
+  #share-modal .share-actions { min-width:0; }
+  #share-modal .share-actions .btn { white-space:normal; height:auto; min-height:42px; }
+  @media(max-width:600px) {
+    #share-modal > .modal { padding:16px; max-height:calc(100dvh - 24px); }
+    #share-modal .share-actions { grid-template-columns:1fr; }
+  }
+
+  #share-modal > .modal { width:60vw; max-width:none; min-width:0;
+    padding-right:0; }
+  #share-modal h3, #share-modal .modal-actions { margin-right:24px; }
+  #share-modal .share-scroll { padding-right:0; scrollbar-gutter:auto; }
+  #share-modal .share-scroll > * { margin-right:16px; }
+  #share-modal .share-scroll::-webkit-scrollbar { width:6px; }
+  body.manage #btn-manage { background:#f7e5e1; color:#b44336; box-shadow:inset 0 0 0 1px #db9f95; }
+  @media(max-width:700px) {
+    #share-modal > .modal { width:calc(100vw - 32px); padding-right:0; }
+    #share-modal h3, #share-modal .modal-actions { margin-right:16px; }
+  }
+
+  /* Three view sizes apply to content and both folder levels. */
+  body.view-loose { --card-min:300px; --grid-gap:18px; --root-folder:250px; --sub-folder:205px; --folder-height:156px; }
+  body.view-standard { --card-min:210px; --grid-gap:12px; --root-folder:220px; --sub-folder:180px; --folder-height:142px; }
+  body.view-compact { --card-min:160px; --grid-gap:10px; --root-folder:180px; --sub-folder:145px; --folder-height:120px; }
+  body .folder-grid { grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--root-folder,220px)),1fr)); gap:var(--grid-gap); }
+  body .subfolder-grid { grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--sub-folder,180px)),1fr)); gap:var(--grid-gap); }
+  body #folder-grid .folder-card { min-height:var(--folder-height,142px); padding:17px; }
+  body #subfolder-grid .folder-card { min-height:calc(var(--folder-height,142px) - 22px); padding:12px; }
+  body.view-compact .folder-ic svg { width:42px; height:36px; }
+  body.view-compact .folder-name { font-size:14px; margin-top:6px; }
+  body.view-compact .folder-card-top { min-height:36px; }
+  body.view-compact .folder-meta { font-size:11px; }
+  .folder-context-menu { width:max-content; min-width:0; max-width:calc(100vw - 24px); max-height:calc(100dvh - 24px); overflow:auto; }
+  .folder-context-menu button { white-space:normal; overflow-wrap:anywhere; }
+
+  body.view-loose { --card-min:250px; --grid-gap:14px; --folder-size:195px; --folder-height:130px; }
+  body.view-standard { --folder-size:180px; --folder-height:120px; }
+  body.view-compact { --folder-size:145px; --folder-height:105px; }
+  body #folder-grid, body #subfolder-grid { grid-template-columns:repeat(auto-fill,minmax(min(100%,var(--folder-size,180px)),1fr)); gap:var(--grid-gap); }
+  body #folder-grid .folder-card, body #subfolder-grid .folder-card { min-height:var(--folder-height,120px); padding:12px; }
+  body #folder-grid .folder-ic svg, body #subfolder-grid .folder-ic svg { width:49px; height:41px; }
+  body #folder-grid .folder-card-top, body #subfolder-grid .folder-card-top { min-height:46px; }
+  body #folder-grid .folder-name, body #subfolder-grid .folder-name { margin-top:9px; font-size:14.5px; }
+  #share-modal > .modal { width:42vw; max-width:calc(100vw - 32px); }
+  @media(max-width:700px) { #share-modal > .modal { width:calc(100vw - 32px); } }
+
+  html { overflow:hidden; scrollbar-gutter:auto; }
+  body.mac-layout { height:100dvh; overflow:hidden; display:flex; flex-direction:column; }
+  .mac-layout .header-wrap { flex:none; width:100%; }
+  .mac-layout .mac-titlebar { height:52px; min-height:52px; flex-shrink:0; }
+  .mac-layout main { flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; width:100%; max-width:none; margin:0; padding-bottom:90px; }
+  .mac-layout.no-scroll main { overflow:hidden; }
 </style>
 </head>
 <body>
@@ -1457,7 +1561,7 @@
           <button type="button" id="mm-share-page">分享网页</button>
           <button type="button" id="mm-zip">导出 ZIP</button>
           <div class="sep"></div>
-          <div class="more-ver">序集 v1.1.0</div>
+          <div class="more-ver">序集 v1.2.0</div>
         </div>
       </details>
       <details class="add-details" id="add-details">
@@ -1478,9 +1582,9 @@
     <span class="sel-count" id="sel-count">已选 0 项</span>
     <button class="btn small ghost" id="btn-select-all">全选</button>
     <button class="btn small" id="sel-done">标记完成</button>
-    <button class="btn small" id="sel-move-folder">移动到文件夹</button>
     <button class="btn small" id="sel-move">移动到分组</button>
-    <button class="btn small ghost" id="sel-clear">取消选择</button>
+    <button class="btn small" id="sel-move-folder">移动到文件夹</button>
+    <button class="btn small danger" id="sel-delete">删除</button>
     <div class="sub-actions">
       <button class="btn small" id="btn-copy-rich">复制图文</button>
       <button class="btn small" id="btn-copy-text">复制文字</button>
@@ -1488,7 +1592,7 @@
       <button class="btn small" id="btn-share-page">分享网页</button>
       <button class="btn small" id="btn-zip">导出 ZIP</button>
     </div>
-    <button class="btn small danger" id="sel-delete">删除</button>
+    <button class="btn small ghost" id="sel-clear">取消</button>
   </div>
 </div>
 
@@ -1666,6 +1770,7 @@
 <div class="modal-mask" id="share-modal">
   <div class="modal">
     <h3>分享到微信</h3>
+    <div class="share-scroll">
     <p class="sub" id="share-sub">将把选中（或当前显示）的图片整理成可分享的内容。</p>
 
     <div class="share-actions">
@@ -1698,6 +1803,7 @@
       <div style="margin-top:6px;color:#8a8578;">PDF 和分享网页都是单个文件，图片已内嵌，离线可用。</div>
     </div>
 
+    </div>
     <div class="modal-actions">
       <button class="btn ghost" id="share-close">关闭</button>
     </div>
@@ -1720,6 +1826,7 @@
     <h3>移动到文件夹</h3>
     <p class="sub" id="image-folder-move-sub">选择目标文件夹。图片会进入目标文件夹当前的分组。</p>
     <div class="picker-trail" id="image-folder-move-trail"></div>
+    <button class="btn small" id="image-folder-last" hidden>上次选择</button>
     <div class="move-list" id="image-folder-move-list"></div>
     <div class="modal-actions">
       <button class="btn ghost" id="image-folder-move-cancel">取消</button>
@@ -1925,23 +2032,7 @@ function childFoldersOf(parentId) {
   return state.folders.filter(f => folderParentId(f) === pid);
 }
 
-function descendantFolderIds(folderId) {
-  const ids = new Set([folderId]);
-  let changed = true;
-  while (changed) {
-    changed = false;
-    for (const f of state.folders) {
-      if (!ids.has(f.id) && f.parentId && ids.has(f.parentId)) {
-        ids.add(f.id);
-        changed = true;
-      }
-    }
-  }
-  ids.delete(folderId);
-  return ids;
-}
 
-/** 从根目录到当前文件夹的路径（不含“全部文件夹”） */
 function folderPath(folderId) {
   const out = [];
   const seen = new Set();
@@ -2060,6 +2151,11 @@ function sortFolderList(list) {
 
 function visibleItems() {
   let list = groupItems(state.group);
+  if (state.search.trim()) {
+    const folders = state.atRoot ? new Set(state.folders.map(f => f.id)) : descendantFolderIds([state.folder]);
+    const groups = new Set(state.groups.filter(g => folders.has(g.folderId)).map(g => g.id));
+    list = state.items.filter(i => groups.has(i.group));
+  }
   list = list.filter(i => isDoc(i) ? state.types.doc : state.types.image);
   if (state.doneFilter === 'todo') list = list.filter(i => !i.done);
   else if (state.doneFilter === 'done') list = list.filter(i => i.done);
@@ -2089,11 +2185,17 @@ function visibleFolders(parentId) {
   let list = childFoldersOf(pid);
   if (state.folderFilter === 'fav') list = list.filter(f => f.favorite);
   const q = state.search.trim().toLowerCase();
-  if (q) list = list.filter(f => (f.name || '').toLowerCase().includes(q));
+  if (q) {
+    const scope = pid ? descendantFolderIds([pid]) : new Set(state.folders.map(f => f.id));
+    list = state.folders.filter(f => f.id !== pid && scope.has(f.id));
+    if (state.folderFilter === 'fav') list = list.filter(f => f.favorite);
+    list = list.filter(f => (f.name || '').toLowerCase().includes(q));
+  }
   return sortFolderList(list);
 }
 
 function descendantFolderIds(folderIds) {
+  if (typeof folderIds === "string") folderIds = [folderIds];
   const ids = new Set();
   const walk = id => {
     if (!id || ids.has(id)) return;
@@ -2130,7 +2232,7 @@ function targets() {
     }
     return sortImageList(list);
   }
-  if (state.atRoot) return [];
+  if (state.atRoot && !state.search.trim()) return [];
   return visibleItems();
 }
 
@@ -2289,8 +2391,8 @@ function render() {
   $('#folder-view').hidden = !atRoot;
   $('#subfolder-view').hidden = atRoot;
   $('#folder-filter').hidden = !atRoot;
-  $('#grid').hidden = atRoot;
-  $('#search').placeholder = atRoot ? '搜索文件夹…' : '搜索子文件夹、图片或文档…';
+  $('#grid').hidden = atRoot && !state.search.trim();
+  $('#search').placeholder = atRoot ? '搜索所有文件夹、图片或文档…' : '搜索子文件夹、图片或文档…';
   updateNav();
 
   if (atRoot) {
@@ -2299,6 +2401,11 @@ function render() {
     $('#empty').classList.remove('show');
     const folders = visibleFolders('');
     renderFolders(folders);
+    const results = state.search.trim() ? visibleItems() : [];
+    const resultGrid = $('#grid');
+    resultGrid.replaceChildren();
+    for (const item of results) resultGrid.append(buildCard(item));
+    if (results.length) $('#folder-empty').classList.remove('show');
     $('#folder-total').textContent = state.folders.length;
     $('#folder-visible').textContent = '本层 ' + folders.length + ' 个';
     $('#folder-fav-total').textContent = '收藏 ' + state.folders.filter(f => f.favorite).length + ' 个';
@@ -2441,9 +2548,9 @@ function setManage(on) {
   document.body.classList.toggle('manage', state.manage);
   const btn = $('#btn-manage');
   const label = btn.querySelector('span');
-  if (label) label.textContent = state.manage ? '完成' : '管理';
-  else btn.textContent = state.manage ? '完成' : '管理';
-  btn.title = state.manage ? '退出管理模式' : '管理：批量选择图片/文件夹、复制、导出';
+  if (label) label.textContent = '管理';
+  else btn.textContent = '管理';
+  btn.title = state.manage ? '管理中，点击取消退出' : '管理：批量选择图片/文件夹、复制、导出';
   btn.setAttribute('aria-pressed', state.manage ? 'true' : 'false');
   render();
 }
@@ -2499,11 +2606,13 @@ function updateSelectionBar() {
   }
   const imageOnly = picked > 0;
   const clearNode = $('#sel-clear');
-  if (clearNode) clearNode.hidden = !has;
-  for (const id of ['#sel-done', '#sel-move-folder', '#sel-move', '#sel-delete']) {
+  if (clearNode) clearNode.hidden = !state.manage;
+  for (const id of ['#sel-done', '#sel-move']) {
     const btn = $(id);
     if (btn) btn.hidden = !has || imageOnly;
   }
+  $('#sel-move-folder').hidden = !has;
+  $('#sel-delete').hidden = !has || imageOnly;
   if (!picked && imgs) {
     const sel = state.items.filter(i => state.selected.has(i.id));
     const allDone = sel.length > 0 && sel.every(i => i.done);
@@ -3351,7 +3460,7 @@ function buildFolderCard(folder) {
     e.stopPropagation();
     selectFolder(folder.id);
     const r = more.getBoundingClientRect();
-    showFolderMenu(folder, r.right - 154, r.bottom + 6);
+    showFolderMenu(folder, r.left, r.bottom + 6);
   });
   more.addEventListener('dblclick', e => e.stopPropagation());
 
@@ -3418,7 +3527,7 @@ function closeFolderMenu() {
 
 function showFolderMenu(folder, x, y) {
   closeFolderMenu();
-  const menu = el('div', { class: 'ctx-menu', role: 'menu' });
+  const menu = el('div', { class: 'ctx-menu folder-context-menu', role: 'menu' });
 
   const open = el('button', { type: 'button', role: 'menuitem' }, '打开');
   open.addEventListener('click', () => { closeFolderMenu(); enterFolder(folder.id); });
@@ -3766,6 +3875,7 @@ function resetFolderPicker() {
   folderPicker.current = '';
   folderPicker.folder = null;
   folderPicker.items = [];
+  folderPicker.folders = [];
 }
 
 function pickerDom(mode) {
@@ -3788,6 +3898,7 @@ function pickerCanMoveHere(mode, folderId) {
   if (mode === 'images') return folderId !== state.folder;
   const moving = folderPicker.folder;
   if (!moving) return false;
+  if ((folderPicker.folders || [moving]).some(f => folderId === f.id || descendantFolderIds(f.id).has(folderId))) return false;
   if (folderId === moving.id) return false;
   if (descendantFolderIds(moving.id).has(folderId)) return false;
   return folderId !== folderParentId(moving);
@@ -3851,7 +3962,7 @@ function renderFolderPicker() {
   }
 
   const blocked = isFolder ? descendantFolderIds(folderPicker.folder.id) : new Set();
-  if (isFolder) blocked.add(folderPicker.folder.id);
+  if (isFolder) for (const f of (folderPicker.folders || [folderPicker.folder])) { blocked.add(f.id); for (const id of descendantFolderIds(f.id)) blocked.add(id); }
   const children = childFoldersOf(current)
     .filter(f => !blocked.has(f.id))
     .sort((a, b) => (a.created || 0) - (b.created || 0));
@@ -3893,9 +4004,13 @@ function renderFolderPicker() {
       : (!current && mode === 'images' ? '请先进入一个文件夹' : '这里不能作为目标位置'));
 }
 
-function confirmFolderPicker() {
+async function confirmFolderPicker() {
   if (folderPicker.mode === 'folder') {
-    moveFolderTo(folderPicker.folder.id, folderPicker.current);
+    const folders = (folderPicker.folders || [folderPicker.folder]).slice();
+    const target = folderPicker.current;
+    for (const folder of folders) await moveFolderTo(folder.id, target);
+    state.selectedFolders.clear();
+    render();
   } else if (folderPicker.mode === 'images') {
     moveImagesToFolder(folderPicker.current);
   }
@@ -3906,6 +4021,7 @@ function openFolderMoveModal(folder) {
   folderPicker.mode = 'folder';
   folderPicker.current = '';
   folderPicker.folder = folder;
+  folderPicker.folders = [folder];
   folderPicker.items = [];
   $('#folder-move-modal').classList.add('open');
   document.body.classList.add('no-scroll');
@@ -4138,6 +4254,19 @@ function openImageFolderMoveModal(items) {
   folderPicker.current = '';
   folderPicker.folder = null;
   folderPicker.items = unique;
+  const lastButton = $('#image-folder-last');
+  let lastId = null;
+  try { lastId = localStorage.getItem('xuji-last-move-folder'); } catch (_) {}
+  const lastTarget = state.folders.find(f => f.id === lastId);
+  lastButton.hidden = !lastTarget || lastTarget.id === state.folder;
+  lastButton.textContent = lastTarget ? '上次选择：' + lastTarget.name : '上次选择';
+  lastButton.onclick = () => {
+    if (!lastTarget || lastTarget.id === state.folder) {
+      toast('内容已在该文件夹，请选择其他目标', 'error'); return;
+    }
+    folderPicker.current = lastTarget.id;
+    renderFolderPicker();
+  };
   $('#image-folder-move-modal').classList.add('open');
   document.body.classList.add('no-scroll');
   renderFolderPicker();
@@ -4158,7 +4287,8 @@ async function moveImagesToFolder(folderId) {
   const targetFolder = state.folders.find(f => f.id === folderId);
   if (!targetFolder) { toast('目标文件夹不存在', 'error'); return; }
   const list = folderPicker.items.slice();
-  if (!list.length) { closeImageFolderMoveModal(); return; }
+  if (!list.length) { toast('没有可移动的内容，请重新选择', 'error'); return; }
+  if (folderId === state.folder) { toast('内容已在该文件夹', 'error'); return; }
   let group = targetGroupForFolder(folderId);
   if (!group) {
     group = { id: uid(), name: '默认分组', created: Date.now(), folderId };
@@ -4181,6 +4311,7 @@ async function moveImagesToFolder(folderId) {
     () => applyGroups(redoPairs)
   );
   await applyGroups(redoPairs);
+  try { localStorage.setItem('xuji-last-move-folder', folderId); } catch (_) {}
   state.selected.clear();
   closeImageFolderMoveModal();
   render();
@@ -7681,7 +7812,7 @@ function normalizeBackupGroups(rawGroups, folders) {
 async function rawItemBlob(raw) {
   if (!raw) return null;
   if (typeof Blob !== 'undefined' && raw.blob instanceof Blob) {
-    return raw.blob.size ? raw.blob : null;
+    return raw.blob.size || backupItemKind(raw, raw.blob) === 'doc' ? raw.blob : null;
   }
   if (typeof raw.data === 'string' && raw.data) {
     return dataUrlToBlob(raw.data, raw.mime || raw.type);
@@ -7709,7 +7840,7 @@ async function normalizeBackup(data) {
     if (seenItems.has(id)) continue;
     seenItems.add(id);
     const blob = await rawItemBlob(raw);
-    if (!blob || !blob.size) throw new Error('有文件数据为空，备份文件可能已损坏');
+    if (!blob || (!blob.size && backupItemKind(raw, blob) !== 'doc')) throw new Error('有文件数据为空，备份文件可能已损坏');
     items.push({
       id,
       kind: backupItemKind(raw, blob),
@@ -8252,7 +8383,7 @@ function bindEvents() {
   window.addEventListener('resize', () => { closeFolderMenu(); closeImageMenu(); updateNav(); renderTabs(); });
 
   // 管理模式
-  $('#btn-manage').addEventListener('click', () => setManage(!state.manage));
+  $('#btn-manage').addEventListener('click', () => setManage(true));
 
   // 排序 / 视图下拉
   $('#sort-compact').addEventListener('click', e => {
@@ -8327,18 +8458,19 @@ function bindEvents() {
     setDone(list, !allDone);
   });
   $('#sel-move-folder').addEventListener('click', () => {
-    openImageFolderMoveModal(state.items.filter(i => state.selected.has(i.id)));
+    if (state.selectedFolders.size) {
+      const folders = state.folders.filter(f => state.selectedFolders.has(f.id));
+      openFolderMoveModal(folders[0]);
+      folderPicker.folders = folders;
+      renderFolderPicker();
+    } else openImageFolderMoveModal(state.items.filter(i => state.selected.has(i.id)));
   });
   $('#sel-move').addEventListener('click', () => openMoveModal());
   $('#sel-delete').addEventListener('click', () => {
     const list = state.items.filter(i => state.selected.has(i.id));
     deleteItems(list);
   });
-  $('#sel-clear').addEventListener('click', () => {
-    state.selected.clear();
-    state.selectedFolders.clear();
-    render();
-  });
+  $('#sel-clear').addEventListener('click', () => setManage(false));
 
   // 备份弹窗
   $('#btn-backup').addEventListener('click', openBackup);
@@ -8870,6 +9002,26 @@ window.PicNote = {
   docData,
   isDoc
 };
+</script>
+<script>
+// Move existing nodes so search state, menus, and event handlers stay intact.
+if (/Mac/i.test(navigator.platform)) {
+  const bar = document.createElement('div');
+  bar.className = 'mac-titlebar';
+  const title = document.createElement('span');
+  title.className = 'mac-titlebar-title';
+  title.textContent = '序集 · 让每一份灵感，都有序可循';
+  bar.append(title);
+  for (const id of ['searchbox', 'btn-share', 'btn-backup', 'add-details']) {
+    bar.append(document.getElementById(id));
+  }
+  document.querySelector('.header-wrap').prepend(bar);
+  document.body.classList.add('mac-layout');
+  const actions = document.querySelector('.head-actions');
+  actions.append(document.getElementById('btn-manage'));
+  document.querySelector('.tabbar').append(actions);
+  document.querySelector('.app-header').hidden = true;
+}
 </script>
 </body>
 </html>

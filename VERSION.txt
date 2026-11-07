@@ -1,24 +1,7 @@
-序集 XUJI v1.1.0
-构建日期：2026-11-04
-品牌语：让每一份灵感，都有序可循。
+序集 XUJI macOS v1.2.0
+构建日期：2026-11-07
+Windows 保持 v1.1.0，macOS 更新至 v1.2.0。
+安装包及 SHA-256：见 GitHub v1.2.0 Release 的 SHA256SUMS.txt。
 
-Windows：XUJI-Windows-x64-v1.1.0.exe
-  1,428,992 字节
-  SHA-256 E563B1584F225B0F6FAF329951E83513AB2AAA7DC24DCBB4DE8BCA7D27557B3E
-
-macOS：XUJI-macOS-arm64-v1.1.0.dmg
-  121,466,442 字节
-  SHA-256 7406D1DE8448E30C831F7DC001B5FA700480C28980B6251C934FE27768CB80EA
-
-macOS：XUJI-macOS-arm64-v1.1.0.zip
-  120,571,123 字节
-  SHA-256 0FF4FA52086366C5EA905A07B375FD9F3C23A3CE467959654F4B42251E11BA55
-
-包含：
-- Windows 版源码、构建脚本、图标
-- macOS 版源码（package.json 版本 1.1.0）、构建脚本、图标
-- 浏览器式标签页（可拖动排序）、顶部工具栏重排、分组标签固定宽度
-- Markdown 文档新建 / 编辑 / 配图（配图只作卡片缩略图）
-- 数据兼容旧版「图记」的目录与存储路径
-
-上一版：v1.0.0（2026-11-03）
+更新：Mac 顶栏与标签工具栏、三档视图与统一文件夹卡片、递归搜索、管理操作与上次移动目标、分享弹窗适配、空 Markdown 备份恢复。
+保留旧版图记数据路径与 picnote-db，不重置数据。

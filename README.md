@@ -8,16 +8,14 @@
 
 ## 下载
 
-发布页：https://github.com/kkkki04/xuji/releases/tag/v1.1.0
+发布页：https://github.com/kkkki04/xuji/releases/tag/v1.2.0
 
 - **Windows**：`XUJI-Windows-x64-v1.1.0.exe`
   - 1,428,992 字节，单文件免安装，Windows 10/11 x64
   - SHA-256 `E563B1584F225B0F6FAF329951E83513AB2AAA7DC24DCBB4DE8BCA7D27557B3E`
-- **macOS（Apple Silicon）**：`XUJI-macOS-arm64-v1.1.0.dmg` / `.zip`
-  - DMG 121,466,442 字节，SHA-256 `7406D1DE8448E30C831F7DC001B5FA700480C28980B6251C934FE27768CB80EA`
-  - ZIP 120,571,123 字节，SHA-256 `0FF4FA52086366C5EA905A07B375FD9F3C23A3CE467959654F4B42251E11BA55`
-  - 未签名版本：首次打开请右键「序集.app」→ 打开，或执行
-    `xattr -dr com.apple.quarantine "/Applications/序集.app"`
+- **macOS（Apple Silicon）**：`XUJI-macOS-arm64-v1.2.0.dmg` / `.zip`
+  - 安装包及 SHA-256 校验值见 v1.2.0 发布页。
+  - 未签名构建；如被 macOS 安全验证拦截，请先核实来源，不要关闭系统安全保护。
 
 ## 功能
 

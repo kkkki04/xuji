@@ -174,7 +174,8 @@ function createWindow() {
     icon: devIcon,
     backgroundColor: '#f7f5f0',
     show: false,
-    titleBarStyle: 'default',
+    titleBarStyle: process.platform === 'darwin' ? 'hiddenInset' : 'default',
+    ...(process.platform === 'darwin' ? { trafficLightPosition: { x: 14, y: 19 } } : {}),
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
